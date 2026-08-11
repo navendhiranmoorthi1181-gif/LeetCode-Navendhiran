@@ -1,0 +1,37 @@
+// Last updated: 8/11/2026, 2:13:39 PM
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int count=0;
+    public int countDominantNodes(TreeNode root) {
+        dfs(root);
+        return count;
+    }
+    private int dfs(TreeNode node){
+        if(node==null){
+            return Integer.MIN_VALUE;
+        }
+        int leftMax=dfs(node.left);
+        int rightMax=dfs(node.right);
+
+        int subTreeMax=Math.max(node.val,Math.max(leftMax,rightMax));
+
+        if(node.val==subTreeMax){
+            count++;
+        }
+        return subTreeMax;
+    }
+}
